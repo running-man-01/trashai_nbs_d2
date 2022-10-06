@@ -15,5 +15,5 @@ sudo apt-get install -y nvidia-docker2
 
 sudo systemctl restart docker
 
-#sudo docker pull nvidia/cuda:11.1.1-cudnn8-devel-ubuntu20.04
+sudo docker pull nvidia/cuda:11.1.1-cudnn8-devel-ubuntu20.04
 

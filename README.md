@@ -17,32 +17,36 @@ Go to: https://www.nvidia.com/Download/index.aspx and find the appropriate GPU d
 
 #`wget https://raw.githubusercontent.com/running-man-01/trashai_nbs_d2/main/starter.sh`
 
-git clone https://github.com/running-man-01/trashai_nbs_d2
+bash starter.sh
 
-cd trashai_nbs_d2 && sudo docker build --build-arg USER_ID=$UID -t detectron2:v0 $(pwd)
+git clone https://github.com/running-man-01/trashai_nbs_d2 && cd trashai_nbs_d2 && \
+bash starter.sh && \
+sudo docker build -t detectron2:v0 $(pwd)
 
-docker run --gpus all -it \
-  --shm-size=8gb --env="DISPLAY" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-  --name=detectron2 detectron2:v0
+sudo docker run --ipc=host -it -v "$(pwd)"/workdir:/usr/src/ -p 8888:8888 nvidia/cuda:11.1.1-cudnn8-devel-ubuntu20.04
 
 
 
 ## STEP 3. deploy docker container
 
-`bash starter.sh`
+#sudo docker run --ipc=host -it -v "$(pwd)"/workdir:/usr/src/ -p 8888:8888 detectron2:v0
 
-`sudo docker run --ipc=host -it -v "$(pwd)"/workdir:/usr/src/ -p 8888:8888 detectron2:v0`
-
+sudo docker run --ipc=host -it -p 8888:8888 detectron2:v0
 
 ## STEP 4. start a jupyter lab
 
-`sudo apt update && sudo apt install git wget curl python3-pip -y && sudo pip install jupyterlab && \
+apt update && apt install git wget curl python3-pip -y && \
+pip install --user torch==1.10 torchvision==0.11.1 -f https://download.pytorch.org/whl/cu111/torch_stable.html && \
+pip install jupyterlab && \
+python3 -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
+
+
 git clone https://github.com/running-man-01/trashai_nbs_d2 && \
 cd trashai_nbs_d2 && \
 jupyter-lab --generate-config && \
-sudo echo 'c.NotebookApp.allow_origin = "*"' >> /home/appuser/.jupyter/jupyter_notebook_config.py && \
-sudo echo 'c.NotebookApp.ip = "0.0.0.0"'>> /home/appuser/.jupyter/jupyter_notebook_config.py && \
-jupyter-lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root`
+echo 'c.NotebookApp.allow_origin = "*"' >> /root/.jupyter/jupyter_notebook_config.py && \
+echo 'c.NotebookApp.ip = "0.0.0.0"'>> /root/.jupyter/jupyter_notebook_config.py && \
+jupyter-lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root
 
 
 So far, the environment has been set up. You can go to the Jupyter Lab link pops up in the terminal.
