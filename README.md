@@ -15,7 +15,15 @@ Go to: https://www.nvidia.com/Download/index.aspx and find the appropriate GPU d
 
 ## STEP 2. start a docker container
 
-`wget https://raw.githubusercontent.com/running-man-01/trashai_nbs_d2/main/starter.sh`
+#`wget https://raw.githubusercontent.com/running-man-01/trashai_nbs_d2/main/starter.sh`
+
+git clone https://github.com/running-man-01/trashai_nbs_d2
+
+cd trashai_nbs_d2 && sudo docker build --build-arg USER_ID=$UID -t detectron2:v0 $(pwd)
+
+docker run --gpus all -it \
+  --shm-size=8gb --env="DISPLAY" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+  --name=detectron2 detectron2:v0
 
 
 
@@ -26,14 +34,14 @@ Go to: https://www.nvidia.com/Download/index.aspx and find the appropriate GPU d
 `sudo docker run --ipc=host -it -v "$(pwd)"/workdir:/usr/src/ -p 8888:8888 detectron2:v0`
 
 
-
 ## STEP 4. start a jupyter lab
 
-`git clone https://github.com/running-man-01/trashai_nbs && \
-cd trashai_nbs && \
+`sudo apt update && sudo apt install git wget curl python3-pip -y && sudo pip install jupyterlab && \
+git clone https://github.com/running-man-01/trashai_nbs_d2 && \
+cd trashai_nbs_d2 && \
 jupyter-lab --generate-config && \
-echo 'c.NotebookApp.allow_origin = "*"' >> /root/.jupyter/jupyter_notebook_config.py && \
-echo 'c.NotebookApp.ip = "0.0.0.0"'>> /root/.jupyter/jupyter_notebook_config.py && \
+sudo echo 'c.NotebookApp.allow_origin = "*"' >> /home/appuser/.jupyter/jupyter_notebook_config.py && \
+sudo echo 'c.NotebookApp.ip = "0.0.0.0"'>> /home/appuser/.jupyter/jupyter_notebook_config.py && \
 jupyter-lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root`
 
 
