@@ -14,3 +14,7 @@ sudo apt-get update
 sudo apt-get install -y nvidia-docker2
 
 sudo systemctl restart docker
+
+sudo wget https://raw.githubusercontent.com/facebookresearch/detectron2/main/docker/Dockerfile
+
+sudo docker build --build-arg USER_ID=$UID -t detectron2:v0 $(pwd)

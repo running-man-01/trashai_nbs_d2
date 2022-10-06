@@ -13,9 +13,9 @@ Go to: https://www.nvidia.com/Download/index.aspx and find the appropriate GPU d
 
 
 
-## STEP 2. get necessary files
+## STEP 2. start a docker container
 
-`sudo wget https://raw.githubusercontent.com/running-man-01/trashai_nbs/main/starter.sh`
+`wget https://raw.githubusercontent.com/running-man-01/trashai_nbs_d2/main/starter.sh`
 
 
 
@@ -23,7 +23,11 @@ Go to: https://www.nvidia.com/Download/index.aspx and find the appropriate GPU d
 
 `bash starter.sh`
 
-`sudo docker run --ipc=host -it -v "$(pwd)"/workdir:/usr/src/ -p 8888:8888 ultralytics/yolov5:latest`
+`sudo docker run --ipc=host -it -v "$(pwd)"/workdir:/usr/src/ -p 8888:8888 detectron2:v0`
+
+
+
+## STEP 4. start a jupyter lab
 
 `git clone https://github.com/running-man-01/trashai_nbs && \
 cd trashai_nbs && \
@@ -31,6 +35,7 @@ jupyter-lab --generate-config && \
 echo 'c.NotebookApp.allow_origin = "*"' >> /root/.jupyter/jupyter_notebook_config.py && \
 echo 'c.NotebookApp.ip = "0.0.0.0"'>> /root/.jupyter/jupyter_notebook_config.py && \
 jupyter-lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root`
+
 
 So far, the environment has been set up. You can go to the Jupyter Lab link pops up in the terminal.
 
