@@ -1,4 +1,4 @@
-This is a seperate repo for models based on `Detectron 2`. `Detectron 2` and `YOLOv5 multi-GPU` have conflicts in system requirements. YOLO models are at: https://github.com/running-man-01/trashai_nbs.
+This is a seperate repo for models based on `Detectron 2`. `Detectron 2` and `YOLOv5 multi-GPU` have conflicts in system requirements. See `ABOUT.md` for description of models. YOLO-based models are at: https://github.com/running-man-01/trashai_nbs.
 
 ## STEP 0. Boot up machine
 
