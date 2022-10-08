@@ -13,7 +13,7 @@ sudo apt update && sudo apt install git wget curl python3-pip -y
 ```
 
 
-## STEP 2. start a docker container
+## STEP 2. install docker & pull a docker container
 ```
 wget https://raw.githubusercontent.com/running-man-01/trashai_nbs_d2/main/starter.sh && bash starter.sh
 ```
